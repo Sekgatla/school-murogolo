@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions - Murogolo Primary School</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" href="logo.jpg">
+<link rel="stylesheet" href="style.css">
+
+<script src="script.js" defer></script>
+</head>
+<body class="bg-indigo-50/40 font-sans text-gray-800">
+<nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
+    <a href="index.html" class="flex items-center gap-3 min-w-0">
+      <img src="logo.jpg" alt="Murogolo Primary School crest" class="h-11 w-11 shrink-0 rounded-lg border border-slate-200 bg-white object-contain p-0.5">
+      <span class="leading-tight min-w-0"><span class="block font-bold text-blue-900 truncate">Murogolo</span><span class="block text-sm text-slate-500 truncate">Primary School</span></span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button type="button" data-theme-toggle class="theme-btn" aria-label="Toggle dark mode" title="Dark mode"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+      <button type="button" id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+<div id="menuOverlay" class="menu-overlay" aria-hidden="true"></div>
+<aside id="sideMenu" class="side-menu" aria-label="Site menu" aria-hidden="true">
+  <div class="side-head"><span class="font-bold text-lg">Menu</span><button type="button" id="menuClose" class="menu-btn" aria-label="Close menu"><i class="fas fa-times"></i></button></div>
+  <div class="side-links">
+    <a href="index.html" class="side-link"><i class="fas fa-home"></i>Home</a>
+    <a href="about.html" class="side-link"><i class="fas fa-info-circle"></i>About Us</a>
+    <a href="curriculum.html" class="side-link"><i class="fas fa-book-open"></i>Curriculum</a>
+    <a href="admissions.html" class="side-link"><i class="fas fa-user-graduate"></i>Admissions</a>
+    <a href="donate.html" class="side-link"><i class="fas fa-hand-holding-heart"></i>Donate</a>
+    <a href="contact.html" class="side-link"><i class="fas fa-envelope"></i>Contact</a>
+  </div>
+  <div class="side-foot"><a href="admissions.html" class="side-cta">Apply Now</a></div>
+</aside>
+<header class="bg-gradient-to-br from-indigo-950 via-indigo-800 to-violet-600 text-white">
+  <div class="container mx-auto px-6 py-20 max-w-4xl">
+    <h1 class="text-4xl md:text-5xl font-bold">Join Murogolo Primary</h1>
+    <p class="mt-5 text-lg text-indigo-100 max-w-2xl">Learners of all backgrounds are welcome. Applications are open from January to March each year for Grade R to Grade 7, and the school charges no fees.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#documents" class="bg-yellow-400 text-indigo-950 px-6 py-3 rounded-lg font-bold hover:bg-yellow-300">What to bring</a>
+      <a href="#steps" class="border-2 border-white px-6 py-3 rounded-lg font-bold hover:bg-white/10">How to apply</a>
+      <a href="contact.html" class="border-2 border-white px-6 py-3 rounded-lg font-bold hover:bg-white/10">Visit the school</a>
+    </div>
+  </div>
+</header>
+<section class="container mx-auto px-6 -mt-8 relative">
+  <div class="bg-white rounded-2xl shadow-lg grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x text-center max-w-4xl mx-auto">
+    <div class="p-6"><p class="text-2xl font-bold text-indigo-800">Jan – Mar</p><p class="text-sm text-gray-500">Applications open</p></div>
+    <div class="p-6"><p class="text-2xl font-bold text-indigo-800">Grade R – 7</p><p class="text-sm text-gray-500">Grades available</p></div>
+    <div class="p-6"><p class="text-2xl font-bold text-indigo-800">No fees</p><p class="text-sm text-gray-500">Quintile 2/3 public school</p></div>
+  </div>
+</section>
+<main class="container mx-auto px-6 py-16 max-w-4xl space-y-16">
+  <section id="documents" class="scroll-mt-24">
+    <h2 class="text-3xl font-bold text-indigo-950 mb-6">Documents you need</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="bg-white p-5 rounded-xl border border-indigo-100 flex gap-4"><i class="fas fa-file-alt text-indigo-600 text-xl mt-1"></i><div><p class="font-bold">Original birth certificate</p><p class="text-sm text-gray-500">Proves your child's age and identity.</p></div></div>
+      <div class="bg-white p-5 rounded-xl border border-indigo-100 flex gap-4"><i class="fas fa-home text-indigo-600 text-xl mt-1"></i><div><p class="font-bold">Proof of residential address</p><p class="text-sm text-gray-500">Shows where your family lives.</p></div></div>
+      <div class="bg-white p-5 rounded-xl border border-indigo-100 flex gap-4"><i class="fas fa-exchange-alt text-indigo-600 text-xl mt-1"></i><div><p class="font-bold">Transfer card</p><p class="text-sm text-gray-500">Only if your child is moving from another school.</p></div></div>
+      <div class="bg-white p-5 rounded-xl border border-indigo-100 flex gap-4"><i class="fas fa-syringe text-indigo-600 text-xl mt-1"></i><div><p class="font-bold">Vaccination record</p><p class="text-sm text-gray-500">Usually found on the clinic card.</p></div></div>
+    </div>
+  </section>
+  <section id="steps" class="scroll-mt-24">
+    <h2 class="text-3xl font-bold text-indigo-950 mb-6">How to apply</h2>
+    <ol class="space-y-4">
+      <li class="flex gap-4 bg-white p-5 rounded-xl border border-indigo-100"><span class="w-9 h-9 shrink-0 rounded-full bg-indigo-700 text-white font-bold flex items-center justify-center">1</span><p>Complete the application form (online or paper).</p></li>
+      <li class="flex gap-4 bg-white p-5 rounded-xl border border-indigo-100"><span class="w-9 h-9 shrink-0 rounded-full bg-indigo-700 text-white font-bold flex items-center justify-center">2</span><p>Submit your documents to the school office.</p></li>
+      <li class="flex gap-4 bg-white p-5 rounded-xl border border-indigo-100"><span class="w-9 h-9 shrink-0 rounded-full bg-indigo-700 text-white font-bold flex items-center justify-center">3</span><p>Attend a brief interview with the principal or admissions officer.</p></li>
+      <li class="flex gap-4 bg-white p-5 rounded-xl border border-indigo-100"><span class="w-9 h-9 shrink-0 rounded-full bg-indigo-700 text-white font-bold flex items-center justify-center">4</span><p>Receive confirmation of acceptance by email or post.</p></li>
+    </ol>
+  </section>
+  <section class="rounded-3xl bg-indigo-900 text-white p-8 md:p-10 flex flex-col md:flex-row gap-6 justify-between items-center">
+    <div><h2 class="text-2xl font-bold text-white">Questions about admissions?</h2><p class="text-indigo-100 mt-1">Visit the school office during office hours (Mon–Thu 07:30–14:30, Fri 07:30–13:00).</p></div>
+    <a href="contact.html" class="bg-yellow-400 text-indigo-950 px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 whitespace-nowrap">Find the school</a>
+  </section>
+</main>
+<footer class="site-footer">
+  <!-- Notice banner -->
+  <div class="sf-notice">
+    <div class="sf-wrap sf-notice-in">
+      <div>
+        <h3><i class="fas fa-bullhorn"></i> Applications are open for Grade R &ndash; 7</h3>
+        <p>Questions about admissions? The school office is happy to help.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="admissions.html" class="pill pill-solid"><i class="fas fa-pen-to-square"></i> Admissions</a>
+        <a href="contact.html" class="pill pill-outline"><i class="fas fa-envelope"></i> Contact us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-wrap">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="index.html" class="sf-logo"><img src="logo.jpg" alt="Murogolo Primary School crest"><span>Murogolo Primary School</span></a>
+        <p>Building a strong foundation for future leaders through quality public education in Ha Muila.</p>
+        <!-- Social links (add yours here):
+        <div class="sf-social"><a class="sf-s" href="YOUR_FACEBOOK_URL" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></div> -->
+      </div>
+      <nav aria-label="Footer" class="sf-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="admissions.html">Admissions</a></li><li><a href="donate.html">Donate</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="sf-col">
+        <h4>Contact Us</h4>
+        <p class="sf-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Ha Muila, Kwaaidraai, Tshitale, Makhado, Limpopo</span></p>
+        <p class="sf-item"><i class="fas fa-envelope" aria-hidden="true"></i><span>P.O. Box 354, Muila</span></p>
+      </div>
+      <div class="sf-col">
+        <h4>School Hours</h4>
+        <ul class="sf-hours">
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Mon &ndash; Thu</span><b>07:30 &ndash; 14:30</b></li>
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Friday</span><b>07:30 &ndash; 13:00</b></li>
+          <li><i class="far fa-calendar-times" aria-hidden="true"></i><span>Weekends</span><b>Closed</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf-bottom">
+    <div class="sf-wrap sf-bottom-in">
+      <a href="index.html" class="sf-logo sf-logo-sm"><img src="logo.jpg" alt=""><span>&copy; 2026 Murogolo Primary School</span></a>
+      <p>No-fee public school &bull; Grade R&ndash;7 &bull; Vhembe District</p>
+    </div>
+  </div>
+  <button type="button" class="sf-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+</footer>
+</body>
+</html>

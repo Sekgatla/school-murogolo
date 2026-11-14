@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Murogolo Primary School</title>
+    <meta name="description" content="Murogolo Primary School is a no-fee public primary school (Grade R to 7) in Ha Muila, Kwaaidraai, Tshitale, Limpopo.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="logo.jpg">
+<link rel="stylesheet" href="style.css">
+
+<script src="script.js" defer></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+<nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
+    <a href="index.html" class="flex items-center gap-3 min-w-0">
+      <img src="logo.jpg" alt="Murogolo Primary School crest" class="h-11 w-11 shrink-0 rounded-lg border border-slate-200 bg-white object-contain p-0.5">
+      <span class="leading-tight min-w-0"><span class="block font-bold text-blue-900 truncate">Murogolo</span><span class="block text-sm text-slate-500 truncate">Primary School</span></span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button type="button" data-theme-toggle class="theme-btn" aria-label="Toggle dark mode" title="Dark mode"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+      <button type="button" id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+<div id="menuOverlay" class="menu-overlay" aria-hidden="true"></div>
+<aside id="sideMenu" class="side-menu" aria-label="Site menu" aria-hidden="true">
+  <div class="side-head"><span class="font-bold text-lg">Menu</span><button type="button" id="menuClose" class="menu-btn" aria-label="Close menu"><i class="fas fa-times"></i></button></div>
+  <div class="side-links">
+    <a href="index.html" class="side-link"><i class="fas fa-home"></i>Home</a>
+    <a href="about.html" class="side-link"><i class="fas fa-info-circle"></i>About Us</a>
+    <a href="curriculum.html" class="side-link"><i class="fas fa-book-open"></i>Curriculum</a>
+    <a href="admissions.html" class="side-link"><i class="fas fa-user-graduate"></i>Admissions</a>
+    <a href="donate.html" class="side-link"><i class="fas fa-hand-holding-heart"></i>Donate</a>
+    <a href="contact.html" class="side-link"><i class="fas fa-envelope"></i>Contact</a>
+  </div>
+  <div class="side-foot"><a href="admissions.html" class="side-cta">Apply Now</a></div>
+</aside>
+
+<header class="about-hero text-white">
+    <div class="container mx-auto px-6 py-24 md:py-32 max-w-4xl">
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight">A rural school with big ambitions for every child.</h1>
+        <p class="mt-6 text-lg md:text-xl text-blue-100 max-w-2xl">
+            Murogolo Primary serves the families of Ha Muila with free, quality education from Grade R to Grade 7.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+            <a href="admissions.html" class="bg-yellow-500 text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-400">Apply now</a>
+            <a href="#who-we-are" class="border-2 border-white px-6 py-3 rounded-lg font-bold hover:bg-white/10">Read our story</a>
+            <a href="curriculum.html" class="border-2 border-white px-6 py-3 rounded-lg font-bold hover:bg-white/10">See curriculum</a>
+        </div>
+    </div>
+</header>
+
+<!-- Quick facts -->
+<section class="bg-white border-b">
+    <div class="container mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div><p class="text-3xl font-bold text-blue-900">Gr R–7</p><p class="text-sm text-gray-500">Foundation to Senior Phase</p></div>
+        <div><p class="text-3xl font-bold text-blue-900">No-Fee</p><p class="text-sm text-gray-500">Quintile 2/3 public school</p></div>
+        <div><p class="text-3xl font-bold text-blue-900">CAPS</p><p class="text-sm text-gray-500">National curriculum</p></div>
+        <div><p class="text-3xl font-bold text-blue-900">~150</p><p class="text-sm text-gray-500">Learners</p></div>
+    </div>
+</section>
+
+<section id="build" class="bg-gradient-to-b from-sky-100 to-white py-16">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-blue-900 text-center">Walk around our school</h2>
+    <p class="text-gray-600 text-center mt-2 mb-8">A 3D render of our face-brick classroom blocks, covered walkway and lawns. Drag to look around, pick a view, or switch the light.</p>
+    <div id="school3d" class="relative h-[300px] sm:h-[420px] md:h-[540px] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/10 bg-gradient-to-b from-sky-400 to-sky-100 cursor-grab touch-pan-y select-none"></div>
+    <div id="ctl" class="flex flex-wrap items-center justify-center gap-2 mt-6">
+      <button data-view="courtyard" class="px-4 py-2 rounded-full font-bold text-sm border-2 border-blue-700 text-blue-700"><i class="fas fa-school mr-1"></i>Courtyard</button>
+      <button data-view="front" class="px-4 py-2 rounded-full font-bold text-sm border-2 border-blue-700 text-blue-700"><i class="fas fa-eye mr-1"></i>Front</button>
+      <button data-view="aerial" class="px-4 py-2 rounded-full font-bold text-sm border-2 border-blue-700 text-blue-700"><i class="fas fa-plane mr-1"></i>Aerial</button>
+      <span class="hidden sm:block w-px h-6 bg-gray-300 mx-2"></span>
+      <button data-light="day" class="px-4 py-2 rounded-full font-bold text-sm border-2 border-blue-700 text-blue-700"><i class="fas fa-sun mr-1"></i>Midday</button>
+      <button data-light="golden" class="px-4 py-2 rounded-full font-bold text-sm border-2 border-blue-700 text-blue-700"><i class="fas fa-cloud-sun mr-1"></i>Golden hour</button>
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-4">Interactive 3D model based on our actual classroom blocks. Not to scale.</p>
+  </div>
+</section>
+
+<main class="container mx-auto px-6 py-16">
+    <div class="flex flex-col lg:flex-row gap-12">
+
+        <div class="lg:w-2/3 space-y-16">
+
+            <section id="who-we-are" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-blue-900 mb-6">Who we are</h2>
+                <div class="space-y-4 text-gray-600 leading-relaxed text-lg max-w-prose">
+                    <p>Murogolo Primary School is a pillar of the Ha Muila community in Kwaaidraai, Tshitale. As a public school we serve the children of the Vhembe District with pride and dedication.</p>
+                    <p>We are a <strong class="text-blue-800">Quintile 2/3 no-fee school</strong>, funded by government, so a child's family income never stands between them and a classroom.</p>
+                    <p>We teach <strong>Grade R (Reception Year) to Grade 7</strong>, covering the Foundation, Intermediate and Senior Phases of the South African education system.</p>
+                </div>
+            </section>
+
+            <section class="rounded-3xl bg-blue-900 text-white p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-white mb-6">Our mission</h2>
+                <blockquote class="text-xl md:text-2xl leading-relaxed text-blue-50">
+                    “To provide basic foundational education with a strong focus on literacy, numeracy, and life skills, empowering the youth of rural Limpopo.”
+                </blockquote>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-blue-900 mb-2">What we stand for</h2>
+                <p class="text-gray-500 mb-8">A safe, disciplined and stimulating place to learn.</p>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
+                        <i class="fas fa-book-open text-2xl text-blue-600 mt-1"></i>
+                        <div><h3 class="font-bold text-blue-900">Strong foundations</h3><p class="text-sm text-gray-600 mt-1">Reading, writing and number skills come first, because everything else is built on them.</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
+                        <i class="fas fa-hand-holding-heart text-2xl text-green-600 mt-1"></i>
+                        <div><h3 class="font-bold text-blue-900">Belonging</h3><p class="text-sm text-gray-600 mt-1">Every child is welcome, whatever their background.</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
+                        <i class="fas fa-shield-alt text-2xl text-blue-600 mt-1"></i>
+                        <div><h3 class="font-bold text-blue-900">Safety and discipline</h3><p class="text-sm text-gray-600 mt-1">Clear expectations and caring staff help learners focus and flourish.</p></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
+                        <i class="fas fa-people-group text-2xl text-yellow-600 mt-1"></i>
+                        <div><h3 class="font-bold text-blue-900">Community</h3><p class="text-sm text-gray-600 mt-1">Parents, elders and neighbours are partners in each child's journey.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold text-blue-900 mb-6">How a child grows with us</h2>
+                <div class="grid md:grid-cols-3 gap-5">
+                    <a href="curriculum.html" class="block bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-300">
+                        <p class="text-yellow-600 font-bold">Grade R – 3</p>
+                        <h3 class="font-bold text-blue-900 text-lg mt-1">Foundation Phase</h3>
+                        <p class="text-sm text-gray-600 mt-2">Literacy, numeracy and life skills through play and routine.</p>
+                    </a>
+                    <a href="curriculum.html" class="block bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-300">
+                        <p class="text-yellow-600 font-bold">Grade 4 – 6</p>
+                        <h3 class="font-bold text-blue-900 text-lg mt-1">Intermediate Phase</h3>
+                        <p class="text-sm text-gray-600 mt-2">Science, technology and social sciences join the core subjects.</p>
+                    </a>
+                    <a href="curriculum.html" class="block bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-300">
+                        <p class="text-yellow-600 font-bold">Grade 7</p>
+                        <h3 class="font-bold text-blue-900 text-lg mt-1">Senior Phase</h3>
+                        <p class="text-sm text-gray-600 mt-2">Specialised subjects that prepare learners for high school.</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <aside class="lg:w-1/3 space-y-6 lg:sticky lg:top-24 self-start">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="flex items-center gap-2 font-bold text-blue-900 mb-4"><i class="fas fa-school"></i> School details</h3>
+                <dl class="space-y-4 text-sm">
+                    <div><dt class="text-gray-500">EMIS number</dt><dd class="font-medium">919341897</dd></div>
+                    <div><dt class="text-gray-500">School type</dt><dd class="font-medium">Public primary, no-fee</dd></div>
+                    <div><dt class="text-gray-500">Phases</dt><dd class="font-medium">Foundation to Senior (Gr R–7)</dd></div>
+                    <div><dt class="text-gray-500">District</dt><dd class="font-medium">Vhembe West</dd></div>
+                </dl>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="flex items-center gap-2 font-bold text-blue-900 mb-4"><i class="fas fa-user-tie"></i> Leadership</h3>
+                <div class="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-user text-xl"></i></div>
+                    <div><p class="font-bold text-gray-800">Mulaudzi N V</p><p class="text-sm text-gray-500">Principal</p></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="flex items-center gap-2 font-bold text-blue-900 mb-4"><i class="fas fa-map-marker-alt"></i> Find us</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Ha Muila, Kwaaidraai<br>Tshitale, Makhado<br>Limpopo Province</p>
+                <p class="text-sm text-gray-600 mt-3"><i class="far fa-clock mr-1"></i> Mon–Thu 07:30–14:30<br><span class="ml-5">Fri 07:30–13:00</span></p>
+                <a href="contact.html" class="inline-block mt-4 text-blue-700 font-bold text-sm hover:underline">Directions and contact</a>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<section class="bg-yellow-500">
+    <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-blue-900">Want your child to join us?</h2>
+            <p class="text-blue-900/80 mt-1">Applications are open from January to March each year.</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="admissions.html" class="bg-blue-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-800">How to apply</a>
+            <a href="donate.html" class="bg-white text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-blue-50">Support the school</a>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+  <!-- Notice banner -->
+  <div class="sf-notice">
+    <div class="sf-wrap sf-notice-in">
+      <div>
+        <h3><i class="fas fa-bullhorn"></i> Applications are open for Grade R &ndash; 7</h3>
+        <p>Questions about admissions? The school office is happy to help.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="admissions.html" class="pill pill-solid"><i class="fas fa-pen-to-square"></i> Admissions</a>
+        <a href="contact.html" class="pill pill-outline"><i class="fas fa-envelope"></i> Contact us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-wrap">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="index.html" class="sf-logo"><img src="logo.jpg" alt="Murogolo Primary School crest"><span>Murogolo Primary School</span></a>
+        <p>Building a strong foundation for future leaders through quality public education in Ha Muila.</p>
+        <!-- Social links (add yours here):
+        <div class="sf-social"><a class="sf-s" href="YOUR_FACEBOOK_URL" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></div> -->
+      </div>
+      <nav aria-label="Footer" class="sf-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="admissions.html">Admissions</a></li><li><a href="donate.html">Donate</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="sf-col">
+        <h4>Contact Us</h4>
+        <p class="sf-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Ha Muila, Kwaaidraai, Tshitale, Makhado, Limpopo</span></p>
+        <p class="sf-item"><i class="fas fa-envelope" aria-hidden="true"></i><span>P.O. Box 354, Muila</span></p>
+      </div>
+      <div class="sf-col">
+        <h4>School Hours</h4>
+        <ul class="sf-hours">
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Mon &ndash; Thu</span><b>07:30 &ndash; 14:30</b></li>
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Friday</span><b>07:30 &ndash; 13:00</b></li>
+          <li><i class="far fa-calendar-times" aria-hidden="true"></i><span>Weekends</span><b>Closed</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf-bottom">
+    <div class="sf-wrap sf-bottom-in">
+      <a href="index.html" class="sf-logo sf-logo-sm"><img src="logo.jpg" alt=""><span>&copy; 2026 Murogolo Primary School</span></a>
+      <p>No-fee public school &bull; Grade R&ndash;7 &bull; Vhembe District</p>
+    </div>
+  </div>
+  <button type="button" class="sf-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</body>
+</html>

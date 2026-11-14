@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate - Murogolo Primary School</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" href="logo.jpg">
+<link rel="stylesheet" href="style.css">
+
+<script src="script.js" defer></script>
+</head>
+<body class="bg-gradient-to-br from-fuchsia-800 via-purple-800 to-indigo-900 min-h-screen font-sans text-gray-800">
+<nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
+    <a href="index.html" class="flex items-center gap-3 min-w-0">
+      <img src="logo.jpg" alt="Murogolo Primary School crest" class="h-11 w-11 shrink-0 rounded-lg border border-slate-200 bg-white object-contain p-0.5">
+      <span class="leading-tight min-w-0"><span class="block font-bold text-blue-900 truncate">Murogolo</span><span class="block text-sm text-slate-500 truncate">Primary School</span></span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button type="button" data-theme-toggle class="theme-btn" aria-label="Toggle dark mode" title="Dark mode"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+      <button type="button" id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+<div id="menuOverlay" class="menu-overlay" aria-hidden="true"></div>
+<aside id="sideMenu" class="side-menu" aria-label="Site menu" aria-hidden="true">
+  <div class="side-head"><span class="font-bold text-lg">Menu</span><button type="button" id="menuClose" class="menu-btn" aria-label="Close menu"><i class="fas fa-times"></i></button></div>
+  <div class="side-links">
+    <a href="index.html" class="side-link"><i class="fas fa-home"></i>Home</a>
+    <a href="about.html" class="side-link"><i class="fas fa-info-circle"></i>About Us</a>
+    <a href="curriculum.html" class="side-link"><i class="fas fa-book-open"></i>Curriculum</a>
+    <a href="admissions.html" class="side-link"><i class="fas fa-user-graduate"></i>Admissions</a>
+    <a href="donate.html" class="side-link"><i class="fas fa-hand-holding-heart"></i>Donate</a>
+    <a href="contact.html" class="side-link"><i class="fas fa-envelope"></i>Contact</a>
+  </div>
+  <div class="side-foot"><a href="admissions.html" class="side-cta">Apply Now</a></div>
+</aside>
+<main class="container mx-auto px-6 py-12 md:py-20 grid lg:grid-cols-2 gap-12 items-center">
+
+  <div class="text-white">
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Help every child in Ha Muila learn.</h1>
+    <p class="mt-6 text-lg text-fuchsia-100 max-w-lg">Murogolo Primary is a no-fee public school. Your gift brings better resources and improved facilities for our learners.</p>
+    <ul class="mt-8 space-y-4 text-fuchsia-50">
+      <li class="flex items-center gap-4"><span class="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center"><i class="fas fa-book-open"></i></span> Better learning resources</li>
+      <li class="flex items-center gap-4"><span class="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center"><i class="fas fa-school"></i></span> Improved school facilities</li>
+      <li class="flex items-center gap-4"><span class="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center"><i class="fas fa-star"></i></span> A brighter future for every learner</li>
+    </ul>
+  </div>
+
+  <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-8">
+    <div class="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-6" role="tablist">
+      <button id="tabCard" class="py-2.5 rounded-lg font-bold text-sm" role="tab"><i class="far fa-credit-card mr-1"></i> Card</button>
+      <button id="tabEft" class="py-2.5 rounded-lg font-bold text-sm" role="tab"><i class="fas fa-university mr-1"></i> Bank (EFT)</button>
+    </div>
+
+    <!-- CARD -->
+    <div id="paneCard">
+      <p class="font-bold text-gray-900 mb-3">Choose an amount</p>
+      <div id="amounts" class="grid grid-cols-4 gap-2"></div>
+      <label class="block mt-3 text-sm text-gray-600" for="custom">Or enter your own amount (R)</label>
+      <input id="custom" type="number" min="5" inputmode="numeric" placeholder="e.g. 350" class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <input id="dname" type="text" placeholder="Your name" autocomplete="name" class="border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+        <input id="demail" type="email" placeholder="Email (for receipt)" autocomplete="email" class="border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+      </div>
+      <div class="mt-5 space-y-3">
+        <button id="payfast" class="w-full bg-fuchsia-700 text-white font-bold py-3.5 rounded-xl hover:bg-fuchsia-600"><i class="far fa-credit-card mr-2"></i>Donate by card or instant EFT <span class="text-xs font-normal opacity-80">(PayFast)</span></button>
+        <button id="yoco" class="w-full bg-indigo-700 text-white font-bold py-3.5 rounded-xl hover:bg-indigo-600"><i class="fas fa-lock mr-2"></i>Donate by card <span class="text-xs font-normal opacity-80">(Yoco)</span></button>
+      </div>
+      <p id="payMsg" class="mt-4 text-sm font-bold text-fuchsia-800 min-h-[1.25rem]" role="status"></p>
+      <div class="mt-3 flex items-center gap-3 text-3xl text-gray-400"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><span class="text-xs text-gray-500 ml-2"><i class="fas fa-shield-alt text-green-600"></i> You pay on the gateway's secure page. We never see or store your card details.</span></div>
+    </div>
+
+    <!-- EFT -->
+    <div id="paneEft" class="hidden">
+      <div class="divide-y" id="rows"></div>
+      <label class="block mt-5 text-sm font-bold text-gray-700" for="who">Your name (for the payment reference)</label>
+      <input id="who" type="text" placeholder="e.g. T Mulaudzi" class="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+      <p id="toast" class="text-sm text-green-700 font-bold h-5 mt-2" role="status"></p>
+      <div class="mt-3 bg-fuchsia-50 border-l-4 border-fuchsia-600 rounded-r-lg p-4 text-sm text-fuchsia-900">After paying, bring or send your proof of payment to the school office so we can acknowledge your donation. Office hours: Mon–Thu 07:30–14:30, Fri 07:30–13:00.</div>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <!-- Notice banner -->
+  <div class="sf-notice">
+    <div class="sf-wrap sf-notice-in">
+      <div>
+        <h3><i class="fas fa-bullhorn"></i> Applications are open for Grade R &ndash; 7</h3>
+        <p>Questions about admissions? The school office is happy to help.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="admissions.html" class="pill pill-solid"><i class="fas fa-pen-to-square"></i> Admissions</a>
+        <a href="contact.html" class="pill pill-outline"><i class="fas fa-envelope"></i> Contact us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-wrap">
+    <div class="sf-grid">
+      <div class="sf-brand">
+        <a href="index.html" class="sf-logo"><img src="logo.jpg" alt="Murogolo Primary School crest"><span>Murogolo Primary School</span></a>
+        <p>Building a strong foundation for future leaders through quality public education in Ha Muila.</p>
+        <!-- Social links (add yours here):
+        <div class="sf-social"><a class="sf-s" href="YOUR_FACEBOOK_URL" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></div> -->
+      </div>
+      <nav aria-label="Footer" class="sf-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="admissions.html">Admissions</a></li><li><a href="donate.html">Donate</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="sf-col">
+        <h4>Contact Us</h4>
+        <p class="sf-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Ha Muila, Kwaaidraai, Tshitale, Makhado, Limpopo</span></p>
+        <p class="sf-item"><i class="fas fa-envelope" aria-hidden="true"></i><span>P.O. Box 354, Muila</span></p>
+      </div>
+      <div class="sf-col">
+        <h4>School Hours</h4>
+        <ul class="sf-hours">
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Mon &ndash; Thu</span><b>07:30 &ndash; 14:30</b></li>
+          <li><i class="far fa-clock" aria-hidden="true"></i><span>Friday</span><b>07:30 &ndash; 13:00</b></li>
+          <li><i class="far fa-calendar-times" aria-hidden="true"></i><span>Weekends</span><b>Closed</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf-bottom">
+    <div class="sf-wrap sf-bottom-in">
+      <a href="index.html" class="sf-logo sf-logo-sm"><img src="logo.jpg" alt=""><span>&copy; 2026 Murogolo Primary School</span></a>
+      <p>No-fee public school &bull; Grade R&ndash;7 &bull; Vhembe District</p>
+    </div>
+  </div>
+  <button type="button" class="sf-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+</footer>
+
+</body>
+</html>
