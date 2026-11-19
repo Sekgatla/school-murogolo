@@ -511,8 +511,9 @@
     });
     return g;
   }
-  scene.add(block({ x0: -22, len: 36, frontZ: -8, depth: 11, Wt: 7.5, pitch: .22, band: 3.65, floorYs: [1.95, 5.6], doors: [3, 8] }));
-  scene.add(block({ x0: 14, len: 17, frontZ: -5, depth: 9, Wt: 4.1, pitch: .18, floorYs: [2.0], doors: [2] }));
+  scene.add(block({ x0: -22, len: 36, frontZ: -8, depth: 11, Wt: 4.2, pitch: .18, floorYs: [2.0], doors: [3, 8] }));
+  var returnWing = new THREE.Group(); returnWing.position.set(14, 0, 0); returnWing.rotation.y = -Math.PI / 2; scene.add(returnWing);
+  returnWing.add(block({ x0: -8.5, len: 17, frontZ: 0, depth: 9, Wt: 4.1, pitch: .18, floorYs: [1.95], doors: [2] }));
 
   /* covered walkways: white posts, corrugated beige roof, gutter */
   function walkway(x0, len, wallZ) {
@@ -526,14 +527,15 @@
     cyl(.05, .05, len + .3, greyMat, cx, outerY - .02, wallZ + w + .06, g, 10).rotation.z = Math.PI / 2;
     return g;
   }
-  scene.add(walkway(-21.5, 35.5, -8)); scene.add(walkway(14.5, 16.5, -5));
+  scene.add(walkway(-21.5, 35.5, -8)); returnWing.add(walkway(-8, 16.5, 0));
 
   /* paving + curbs */
-  function pave(x0, w, z0, d) {
-    var m = sh(new THREE.Mesh(new THREE.PlaneGeometry(w, d), paveMat(w, d)), false); m.rotation.x = -Math.PI / 2; m.position.set(x0 + w / 2, .03, z0 + d / 2); scene.add(m);
-    box(w + .3, .16, .16, conc(w, .2), x0 + w / 2, .06, z0 + d + .08, scene);
+  function pave(x0, w, z0, d, parent) {
+    var target = parent || scene;
+    var m = sh(new THREE.Mesh(new THREE.PlaneGeometry(w, d), paveMat(w, d)), false); m.rotation.x = -Math.PI / 2; m.position.set(x0 + w / 2, .03, z0 + d / 2); target.add(m);
+    box(w + .3, .16, .16, conc(w, .2), x0 + w / 2, .06, z0 + d + .08, target);
   }
-  pave(-22.5, 36.5, -8, 3.9); pave(14, 17.5, -5, 3.9);
+  pave(-22.5, 36.5, -8, 3.9); pave(-8, 16.5, 0, 3.9, returnWing);
 
   /* lawn variety */
   var pc = cvs(256, 256); (function () { var x = pc.getContext('2d'), g = x.createRadialGradient(128, 128, 0, 128, 128, 128); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); })();
@@ -566,20 +568,6 @@
   }
   bench(21, .2, -.15); bench(26.5, 1.6, .1); bench(-4, 1.3, .05);
 
-  /* entrance sign */
-  (function () {
-    var c = cvs(1024, 256), x = c.getContext('2d'); x.fillStyle = '#0b2a78'; x.fillRect(0, 0, 1024, 256);
-    x.strokeStyle = '#f59e0b'; x.lineWidth = 10; x.strokeRect(14, 14, 996, 228);
-    x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = 'bold 92px "Trebuchet MS",Arial,sans-serif'; x.fillText('MUROGOLO', 512, 100);
-    x.font = 'bold 56px "Trebuchet MS",Arial,sans-serif'; x.fillStyle = '#fbbf24'; x.fillText('PRIMARY SCHOOL', 512, 186);
-    var t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = aniso;
-    var g = new THREE.Group(), bm = brickMat(.6, 1.7);
-    box(.6, 1.7, .6, bm, -2.35, .85, 0, g); box(.6, 1.7, .6, bm, 2.35, .85, 0, g);
-    box(.7, .12, .7, conc(1, 1), -2.35, 1.76, 0, g); box(.7, .12, .7, conc(1, 1), 2.35, 1.76, 0, g);
-    var pl = sh(new THREE.Mesh(new THREE.BoxGeometry(4.1, 1.0, .14), [std(0x0b2a78), std(0x0b2a78), std(0x0b2a78), std(0x0b2a78), new THREE.MeshStandardMaterial({ map: t, roughness: .4 }), std(0x0b2a78)]));
-    pl.position.set(0, .9, 0); g.add(pl); g.position.set(-12, 0, 11); g.rotation.y = .12; scene.add(g);
-  })();
-
   /* ---------- camera rig ---------- */
   var cam = new THREE.PerspectiveCamera(36, 1, .5, 900);
   function viewFrom(p, t) { var d = new THREE.Vector3(p[0] - t[0], p[1] - t[1], p[2] - t[2]), L = d.length(); return { t: new THREE.Vector3(t[0], t[1], t[2]), yaw: Math.atan2(d.x, d.z), pitch: Math.asin(d.y / L), dist: L }; }
@@ -588,7 +576,7 @@
   cur = { yaw: want.yaw, pitch: want.pitch, dist: want.dist, t: want.t.clone() };
 
   var ctl = document.getElementById('ctl');
-  function mark(attr, val) { ctl.querySelectorAll('[' + attr + ']').forEach(function (b) { var on = b.getAttribute(attr) === val; b.classList.toggle('bg-blue-700', on); b.classList.toggle('text-white', on); b.classList.toggle('text-blue-700', !on); }); }
+  function mark(attr, val) { ctl.querySelectorAll('[' + attr + ']').forEach(function (b) { var on = b.getAttribute(attr) === val; b.classList.toggle('bg-blue-700', on); b.classList.toggle('text-white', on); b.classList.toggle('text-blue-700', !on); b.setAttribute('aria-pressed', on); }); }
   ctl.addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     if (b.dataset.view) { var v = VIEWS[b.dataset.view]; want.yaw = v.yaw; want.pitch = v.pitch; want.dist = v.dist; want.t.copy(v.t); mark('data-view', b.dataset.view); }
@@ -640,302 +628,6 @@
   applyTod(0); frame(performance.now());
   new IntersectionObserver(function (en) { en[0].isIntersecting ? start() : stop(); }, { threshold: .1 }).observe(el);
   document.addEventListener('visibilitychange', function () { document.hidden ? stop() : (el.getBoundingClientRect().top < innerHeight && start()); });
-})();
-
-/* ===== Curriculum: 3D activity cards ===== */
-(function () {
-  var cards = [].slice.call(document.querySelectorAll('.sport'));
-  if (!cards.length) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!window.THREE) return;
-  var T = THREE;
-
-  function mat(c, o) { return new T.MeshStandardMaterial(Object.assign({ color: c, flatShading: false, roughness: .55, metalness: .04 }, o || {})); }
-  function mesh(g, c, o) { return new T.Mesh(g, mat(c, o)); }
-  function lerp(a, b, t) { return a + (b - a) * t; }
-  function c01(x) { return Math.max(0, Math.min(1, x)); }
-  function ease(x) { x = c01(x); return x * x * (3 - 2 * x); }
-  function easeIn(x) { x = c01(x); return x * x * x; }
-
-  var SKIN = 0x8a5a3c, HAIR = 0x15151a;
-  function limb(len, r, c) { var g = new T.CylinderGeometry(r, r * .85, len, 28); g.translate(0, -len / 2, 0); return mesh(g, c); }
-
-  // Low-poly person, facing +z, feet on y = 0
-  function person(o) {
-    var P = { sh: [], el: [], hand: [], hip: [], kn: [], foot: [] };
-    var g = new T.Group(), hips = new T.Group(); hips.position.y = 1.17; g.add(hips);
-    hips.add(mesh(new T.CylinderGeometry(.3, .34, .4, 28), o.bottom));
-    var chest = new T.Group(); chest.position.y = .15; hips.add(chest);
-    var torso = mesh(new T.CylinderGeometry(.37, .3, .78, 28), o.top); torso.position.y = .4; chest.add(torso);
-    var head = new T.Group(); head.position.y = 1.0; chest.add(head);
-    head.add(mesh(new T.SphereGeometry(.26, 28, 20), SKIN));
-    var hair = mesh(new T.SphereGeometry(.275, 28, 20, 0, Math.PI * 2, 0, Math.PI * .52), o.hair || HAIR); hair.position.y = .02; hair.rotation.x = -.15; head.add(hair);
-    [-1, 1].forEach(function (s) {
-      var sh = new T.Group(); sh.position.set(s * .45, .7, 0); chest.add(sh);
-      sh.add(mesh(new T.SphereGeometry(.12, 28, 20), o.top));
-      sh.add(limb(.42, .1, o.top));
-      var el = new T.Group(); el.position.y = -.42; sh.add(el);
-      el.add(limb(.4, .08, SKIN));
-      var hand = mesh(new T.SphereGeometry(.1, 28, 20), SKIN); hand.position.y = -.42; el.add(hand);
-      P.sh.push(sh); P.el.push(el); P.hand.push(hand);
-      var hp = new T.Group(); hp.position.set(s * .17, -.12, 0); hips.add(hp);
-      hp.add(limb(.5, .14, SKIN)); hp.add(limb(.28, .165, o.bottom));
-      var kn = new T.Group(); kn.position.y = -.5; hp.add(kn);
-      kn.add(limb(.5, .1, SKIN));
-      var sock = limb(.26, .108, o.sock); sock.position.y = -.24; kn.add(sock);
-      var foot = mesh(new T.BoxGeometry(.17, .1, .34), o.shoe || 0x111111); foot.position.set(0, -.5, .08); kn.add(foot);
-      P.hip.push(hp); P.kn.push(kn); P.foot.push(foot);
-    });
-    P.g = g; P.hips = hips; P.chest = chest; P.head = head;
-    return P;
-  }
-
-  function blob(r, op) {
-    var c = document.createElement('canvas'); c.width = c.height = 64;
-    var x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 2, 32, 32, 32);
-    gr.addColorStop(0, 'rgba(0,0,0,' + op + ')'); gr.addColorStop(1, 'rgba(0,0,0,0)');
-    x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
-    var m = new T.Mesh(new T.PlaneGeometry(r * 2, r * 2), new T.MeshBasicMaterial({ map: new T.CanvasTexture(c), transparent: true, depthWrite: false }));
-    m.rotation.x = -Math.PI / 2; m.position.y = .03; m.visible = false; return m;
-  }
-  function disc(r, c, x, z) { var m = mesh(new T.CylinderGeometry(r, r, .14, 48), c); m.position.set(x || 0, -.07, z || 0); return m; }
-  function ballTex(kind) {
-    var W = 512, H = 256, c = document.createElement('canvas'); c.width = W; c.height = H; var x = c.getContext('2d'), im = x.createImageData(W, H);
-    var f = (1 + Math.sqrt(5)) / 2, pts = [], blk = [];
-    function add(v, b) { var l = Math.hypot(v[0], v[1], v[2]); pts.push([v[0] / l, v[1] / l, v[2] / l]); blk.push(b); }
-    [[0, 1, f], [0, -1, f], [0, 1, -f], [0, -1, -f], [1, f, 0], [-1, f, 0], [1, -f, 0], [-1, -f, 0], [f, 0, 1], [-f, 0, 1], [f, 0, -1], [-f, 0, -1]].forEach(function (v) { add(v, 1); });
-    var q = 1 / f;
-    [[1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1], [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1], [0, q, f], [0, q, -f], [0, -q, f], [0, -q, -f], [q, f, 0], [q, -f, 0], [-q, f, 0], [-q, -f, 0], [f, 0, q], [f, 0, -q], [-f, 0, q], [-f, 0, -q]].forEach(function (v) { add(v, 0); });
-    for (var j = 0; j < H; j++) for (var i = 0; i < W; i++) {
-      var th = i / W * Math.PI * 2, ph = j / H * Math.PI, d = [Math.cos(th) * Math.sin(ph), Math.cos(ph), Math.sin(th) * Math.sin(ph)], b1 = -2, b2 = -2, k1 = 0;
-      for (var n = 0; n < pts.length; n++) { var dd = d[0] * pts[n][0] + d[1] * pts[n][1] + d[2] * pts[n][2]; if (dd > b1) { b2 = b1; b1 = dd; k1 = n; } else if (dd > b2) b2 = dd; }
-      var edge = (b1 - b2) < .028, col;
-      if (kind === 'soccer') col = edge ? [70, 70, 74] : blk[k1] ? [22, 22, 26] : [246, 246, 244];
-      else { var seam = Math.abs(d[1]) < .035 || Math.abs(d[0]) < .03 || Math.abs(d[2]) < .03 || Math.abs(d[0] - d[2]) < .03 && false; col = seam ? [60, 30, 10] : [226, 102, 22]; var g = ((Math.sin(i * 1.7) * Math.sin(j * 2.3)) * 8) | 0; col = [col[0] + g, col[1] + g, col[2] + g]; }
-      var o = (j * W + i) * 4; im.data[o] = col[0]; im.data[o + 1] = col[1]; im.data[o + 2] = col[2]; im.data[o + 3] = 255;
-    }
-    x.putImageData(im, 0, 0); var t = new T.CanvasTexture(c); t.encoding = T.sRGBEncoding; t.anisotropy = 4; return t;
-  }
-  var BT = {};
-  function ball(r, c) {
-    var kind = c === 0xffffff ? 'soccer' : 'net'; BT[kind] = BT[kind] || ballTex(kind);
-    var g = new T.Group(); g.add(mesh(new T.SphereGeometry(r, 40, 28), 0xffffff, { map: BT[kind], roughness: kind === 'soccer' ? .32 : .6 }));
-    return g;
-  }
-
-  /* ---------- SOCCER: player striking the ball ---------- */
-  function buildSoccer(scene) {
-    var P = person({ top: 0x1d4ed8, bottom: 0xffffff, sock: 0xfacc15 });
-    P.g.position.set(-.5, 0, 0); P.g.rotation.y = 1.0; scene.add(P.g);
-    scene.add(disc(3.9, 0x5aa016, 1.1, 0));
-    var sh = blob(1.2, .4); sh.position.x = -.5; scene.add(sh);
-    var B = ball(.3, 0xffffff); scene.add(B);
-    var bs = blob(.5, .35); scene.add(bs);
-    var trail = []; for (var i = 0; i < 4; i++) { var tm = new T.Mesh(new T.SphereGeometry(.24 - i * .035, 28, 20), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .3 - i * .06, depthWrite: false })); scene.add(tm); trail.push(tm); }
-
-    function kick(p) {
-      var hip, kn, e;
-      if (p < .45) { e = ease(p / .45); hip = lerp(.15, .9, e); kn = lerp(.3, 1.2, e); }
-      else if (p < .6) { e = easeIn((p - .45) / .15); hip = lerp(.9, -.95, e); kn = lerp(1.2, .1, e); }
-      else if (p < .7) { e = (p - .6) / .1; hip = lerp(-.95, -1.3, e); kn = lerp(.1, .45, e); }
-      else { e = ease((p - .7) / .3); hip = lerp(-1.3, .15, e); kn = lerp(.45, .3, e); }
-      return [hip, kn];
-    }
-    function pose(p) {
-      var k = kick(p), lean;
-      P.hip[1].rotation.x = k[0]; P.kn[1].rotation.x = k[1];
-      P.hip[0].rotation.x = .12; P.kn[0].rotation.x = .2;
-      if (p < .45) lean = lerp(0, -.18, ease(p / .45)); else if (p < .6) lean = lerp(-.18, .25, (p - .45) / .15); else lean = lerp(.25, 0, ease((p - .6) / .4));
-      P.chest.rotation.x = lean; P.chest.rotation.y = -k[0] * .2;
-      P.sh[0].rotation.x = k[0] * .8; P.sh[1].rotation.x = -k[0] * .8;
-      P.sh[0].rotation.z = -.5; P.sh[1].rotation.z = .5;
-      P.el[0].rotation.x = -.5; P.el[1].rotation.x = -.5;
-      P.hips.position.y = 1.17 + (p > .55 && p < .8 ? .14 * Math.sin((p - .55) / .25 * Math.PI) : 0);
-    }
-    pose(.6); scene.updateMatrixWorld(true);
-    var rest = new T.Vector3(); P.foot[1].getWorldPosition(rest);
-    rest.x += .21; rest.z += .13; rest.y = Math.max(.35, rest.y);
-
-    var ph = .66;
-    return {
-      cam: [1.3, 2.3, 9.8], look: [1.3, 1.3, 0], aspect: 1.0,
-      update: function (dt, h) {
-        ph = (ph + dt * (1 + .6 * h) / 2.4) % 1; pose(ph);
-        var u = (ph - .58) / .42, k = 1 + .3 * h;
-        if (u < 0) { B.position.copy(rest); B.scale.setScalar(1); trail.forEach(function (t) { t.visible = false; }); }
-        else {
-          var f = function (q) { return [rest.x + 3.2 * k * q, rest.y + 3.0 * q - 2.4 * q * q, rest.z + 3.6 * q]; };
-          var b = f(u); B.position.set(b[0], b[1], b[2]); B.scale.setScalar(1 + 1.1 * u);
-          trail.forEach(function (t, i) { var q = u - .05 * (i + 1); t.visible = q > 0; if (q > 0) { var tp = f(q); t.position.set(tp[0], tp[1], tp[2]); } });
-        }
-        B.visible = u < .985; B.rotation.x += dt * 9; B.rotation.z += dt * 4;
-        bs.position.x = B.position.x; bs.position.z = B.position.z; bs.scale.setScalar(Math.max(.4, 1.3 - B.position.y * .25));
-      }
-    };
-  }
-
-  /* ---------- NETBALL: shooting through the hoop ---------- */
-  function buildNetball(scene) {
-    var P = person({ top: 0xfacc15, bottom: 0x1e3a8a, sock: 0xffffff });
-    P.g.position.set(-1.3, 0, 0); P.g.rotation.y = .8; scene.add(P.g);
-    scene.add(disc(3.7, 0x86198f, .3, 0));
-    var sh = blob(1.1, .4); sh.position.x = -1.3; scene.add(sh);
-    var RING = new T.Vector3(1.5, 4.0, -.4);
-    var post = mesh(new T.CylinderGeometry(.09, .11, 4.0, 28), 0xf1f5f9); post.position.set(1.9, 2.0, -.4); scene.add(post);
-    var base = mesh(new T.CylinderGeometry(.42, .48, .16, 28), 0x475569); base.position.set(1.9, .08, -.4); scene.add(base);
-    var ring = mesh(new T.TorusGeometry(.4, .045, 8, 28), 0xff6a00); ring.rotation.x = Math.PI / 2; ring.position.copy(RING); scene.add(ring);
-    var net = new T.Mesh(new T.CylinderGeometry(.4, .2, .75, 12, 3, true), new T.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: .85 }));
-    net.position.set(RING.x, RING.y - .38, RING.z); scene.add(net);
-    var B = ball(.3, 0xfff1d6); scene.add(B);
-    var bs = blob(.5, .35); scene.add(bs);
-    var start = new T.Vector3(), ph = .5, hm = new T.Vector3(), tmp = new T.Vector3();
-
-    function pose(p) {
-      var shoot = ease((p - .3) / .2);
-      var squat = p < .3 ? ease(p / .3) : (p < .4 ? 1 - ease((p - .3) / .1) : 0);
-      var land = (p > .62 && p < .75) ? Math.sin((p - .62) / .13 * Math.PI) * .5 : 0;
-      var bend = Math.max(squat, land);
-      var air = (p > .3 && p < .62) ? Math.sin((p - .3) / .32 * Math.PI) : 0;
-      for (var i = 0; i < 2; i++) { P.hip[i].rotation.x = -.55 * bend - .35 * air; P.kn[i].rotation.x = .95 * bend + .5 * air; }
-      P.hips.position.y = 1.17 - .11 * bend + .55 * air;
-      var relax = ease((p - .7) / .3);
-      var shx = lerp(lerp(-1.55, -2.7, shoot), -.25, relax), elx = lerp(lerp(-1.8, -.3, shoot), -.3, relax);
-      for (var j = 0; j < 2; j++) { P.sh[j].rotation.x = shx; P.el[j].rotation.x = elx; }
-      P.sh[0].rotation.z = -.12; P.sh[1].rotation.z = .12;
-      P.chest.rotation.x = lerp(0, -.12, shoot) * (1 - relax);
-    }
-    function handsMid(out) { P.g.updateMatrixWorld(true); P.hand[0].getWorldPosition(out); P.hand[1].getWorldPosition(tmp); out.add(tmp).multiplyScalar(.5); out.y += .28; return out; }
-
-    return {
-      cam: [.3, 2.3, 9.8], look: [.3, 2.1, 0], aspect: 1.0,
-      update: function (dt, h) {
-        ph = (ph + dt * (1 + .6 * h) / 2.6) % 1; pose(ph);
-        var netS = 1;
-        if (ph < .45) { handsMid(hm); B.position.copy(hm); start.copy(hm); B.visible = true; B.scale.setScalar(1); }
-        else if (ph < .85) {
-          var u = (ph - .45) / .4;
-          B.position.set(lerp(start.x, RING.x, u), lerp(start.y, RING.y, u) + 1.0 * Math.sin(Math.PI * u), lerp(start.z, RING.z, u));
-        } else {
-          var v = (ph - .85) / .15;
-          B.position.set(RING.x, RING.y - v * v * 3.7, RING.z); B.visible = v < .98;
-          var d = Math.abs(B.position.y - RING.y); if (d < .7) netS = 1 + .3 * (1 - d / .7);
-        }
-        net.scale.y = netS;
-        B.rotation.x += dt * 5;
-        bs.position.set(B.position.x, .03, B.position.z); bs.scale.setScalar(Math.max(.4, 1.3 - B.position.y * .22));
-      }
-    };
-  }
-
-  /* ---------- ATHLETICS: sprinting on a track ---------- */
-  function buildAthletics(scene) {
-    var P = person({ top: 0xfacc15, bottom: 0x111827, sock: 0xffffff, shoe: 0xf8fafc });
-    P.g.rotation.y = 1.2; scene.add(P.g);
-    var track = mesh(new T.BoxGeometry(14, .12, 4.4), 0xe2552d); track.position.y = -.06; scene.add(track);
-    [-1.65, -.55, .55, 1.65].forEach(function (z) { var l = mesh(new T.BoxGeometry(14, .02, .07), 0xffffff); l.position.set(0, .01, z); scene.add(l); });
-    var stripes = [];
-    for (var i = 0; i < 8; i++) { var s = mesh(new T.BoxGeometry(.08, .02, 4.4), 0xffffff); s.position.set(-6 + i * 1.7, .012, 0); scene.add(s); stripes.push(s); }
-    var sh = blob(1.1, .4); scene.add(sh);
-    var lines = []; [1.0, 1.55, 2.1].forEach(function (y, i) { var l = new T.Mesh(new T.BoxGeometry(1.1, .035, .035), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .5 })); l.position.set(-1.5 - i * .3, y, .3); scene.add(l); lines.push(l); });
-    var ph = 0;
-    return {
-      cam: [1.6, 1.9, 8.2], look: [.3, 1.3, 0], aspect: 1.0,
-      update: function (dt, h) {
-        var sp = 1 + .5 * h; ph = (ph + dt * sp / .62) % 1; var a = ph * Math.PI * 2;
-        P.hip[1].rotation.x = -.95 * Math.sin(a); P.hip[0].rotation.x = .95 * Math.sin(a);
-        P.kn[1].rotation.x = .2 + 1.05 * Math.max(0, Math.cos(a)); P.kn[0].rotation.x = .2 + 1.05 * Math.max(0, -Math.cos(a));
-        P.sh[1].rotation.x = .9 * Math.sin(a); P.sh[0].rotation.x = -.9 * Math.sin(a);
-        P.el[0].rotation.x = -1.5; P.el[1].rotation.x = -1.5;
-        P.sh[0].rotation.z = -.1; P.sh[1].rotation.z = .1;
-        P.hips.rotation.x = .32; P.chest.rotation.y = .12 * Math.sin(a);
-        P.hips.position.y = 1.1 + .08 * Math.abs(Math.sin(a * 2 + .5));
-        stripes.forEach(function (s) { s.position.x -= dt * 6 * sp; if (s.position.x < -6) s.position.x += 13.6; });
-        lines.forEach(function (l, i) { l.position.x = -1.5 - i * .3 - .35 * Math.abs(Math.sin(a + i)); l.material.opacity = .25 + .35 * Math.abs(Math.sin(a * 1.5 + i)); });
-        sh.position.x = Math.sin(a * 2) * .05;
-      }
-    };
-  }
-
-  /* ---------- SPEECH & PERFORMANCE: vintage mic on stage ---------- */
-  function buildSpeech(scene) {
-    var P = person({ top: 0x2563eb, bottom: 0x1f2937, sock: 0x1f2937 });
-    P.g.position.set(-.8, .25, 0); P.g.rotation.y = .55; scene.add(P.g);
-    var stage = mesh(new T.CylinderGeometry(3.1, 3.3, .25, 44), 0x92400e); stage.position.y = .125; scene.add(stage);
-    var top = mesh(new T.CylinderGeometry(3.0, 3.0, .02, 44), 0xb45309); top.position.y = .26; scene.add(top);
-    for (var i = -6; i <= 6; i++) { var c = mesh(new T.BoxGeometry(.7, 6.4, .3), i % 2 ? 0xb91c1c : 0x991b1b); c.position.set(i * .68, 3.2, -2.6); scene.add(c); }
-    var val = mesh(new T.BoxGeometry(9.2, .6, .4), 0x7f1d1d); val.position.set(0, 6.2, -2.4); scene.add(val);
-    var sh = blob(1.1, .45); sh.position.set(-.8, .27, 0); scene.add(sh);
-    // microphone stand + vintage mic
-    var mb = mesh(new T.CylinderGeometry(.36, .42, .07, 28), 0x374151); mb.position.set(-.3, .3, .55); scene.add(mb);
-    var pole = mesh(new T.CylinderGeometry(.03, .03, 2.1, 28), 0xd1d5db, { metalness: .8, roughness: .25 }); pole.position.set(-.3, 1.34, .55); scene.add(pole);
-    var mic = new T.Group(); mic.position.set(-.45, 2.58, .52); mic.rotation.z = .5; scene.add(mic);
-    var mh = mesh(new T.SphereGeometry(.2, 28, 20), 0xe5e7eb, { metalness: .85, roughness: .22 }); mh.scale.set(.85, 1.35, .85); mic.add(mh);
-    [-.15, 0, .15].forEach(function (y) { var g = mesh(new T.TorusGeometry(.17 - Math.abs(y) * .2, .012, 6, 16), 0x6b7280); g.rotation.x = Math.PI / 2; g.position.y = y; mic.add(g); });
-    var neck = mesh(new T.CylinderGeometry(.05, .07, .25, 28), 0x9ca3af); neck.position.y = -.4; mic.add(neck);
-    var waves = []; for (var w = 0; w < 3; w++) { var r = new T.Mesh(new T.TorusGeometry(.3, .02, 6, 28), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .5, depthWrite: false })); r.position.set(-.3, 2.6, .8); scene.add(r); waves.push(r); }
-    var cone = new T.Mesh(new T.ConeGeometry(1.9, 5.4, 28, 1, true), new T.MeshBasicMaterial({ color: 0xfff4b8, transparent: true, opacity: .13, side: T.DoubleSide, depthWrite: false, blending: T.AdditiveBlending }));
-    cone.position.set(-.4, 2.9, 0); scene.add(cone);
-    var ph = 0;
-    return {
-      cam: [0, 2.5, 8.8], look: [-.2, 2.2, 0], aspect: 1.7,
-      update: function (dt, h) {
-        ph = (ph + dt * (1 + .5 * h) / 4) % 1; var a = ph * Math.PI * 2;
-        P.head.rotation.x = .07 * Math.sin(a * 6) - .03; P.head.rotation.y = -.15 + .08 * Math.sin(a * 2);
-        P.sh[1].rotation.x = -1.25 + .35 * Math.sin(a * 3); P.sh[1].rotation.z = .75 + .2 * Math.sin(a * 3 + 1); P.el[1].rotation.x = -.9 + .4 * Math.sin(a * 3 + 1.5);
-        P.sh[0].rotation.x = -1.0; P.sh[0].rotation.z = -.2; P.el[0].rotation.x = -1.15;
-        P.chest.rotation.z = .05 * Math.sin(a * 2); P.chest.rotation.x = -.05 + .03 * Math.sin(a * 6);
-        P.hips.position.y = 1.17 + .02 * Math.sin(a * 6);
-        P.hip[0].rotation.x = .05; P.hip[1].rotation.x = -.06; P.kn[1].rotation.x = .1;
-        waves.forEach(function (r, i) { var q = (ph * 3 + i / 3) % 1; r.scale.setScalar(1 + q * 2.6); r.material.opacity = .5 * (1 - q); });
-      }
-    };
-  }
-
-  var BUILD = { soccer: buildSoccer, netball: buildNetball, athletics: buildAthletics, speech: buildSpeech };
-  var insts = [];
-
-  cards.forEach(function (card) {
-    var host = card.querySelector('.stage'), key = card.dataset.sport, r;
-    try { r = new T.WebGLRenderer({ alpha: true, antialias: true }); } catch (e) { host.innerHTML = '<i class="fas ' + (card.dataset.icon || 'fa-star') + ' text-7xl opacity-60 absolute right-8 top-10"></i>'; return; }
-    r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputEncoding = T.sRGBEncoding; r.setClearColor(0x000000, 0); r.toneMapping = T.ACESFilmicToneMapping; r.toneMappingExposure = 1.15; r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
-    r.domElement.style.display = 'block'; host.appendChild(r.domElement);
-    var scene = new T.Scene(), cam = new T.PerspectiveCamera(32, 1, .1, 100);
-    scene.add(new T.HemisphereLight(0xffffff, 0x8899aa, .7));
-    var key1 = new T.DirectionalLight(0xfff4e0, 1.5); key1.position.set(3, 8, 6); key1.castShadow = true; key1.shadow.mapSize.set(1024, 1024); key1.shadow.radius = 5; key1.shadow.bias = -.0008; key1.shadow.normalBias = .03;
-    ['left', 'bottom'].forEach(function (k) { key1.shadow.camera[k] = -7; }); ['right', 'top'].forEach(function (k) { key1.shadow.camera[k] = 7; }); key1.shadow.camera.far = 30; scene.add(key1);
-    var rim = new T.PointLight(0xaaccff, .7, 40); rim.position.set(-6, 3, -4); scene.add(rim);
-    var api = BUILD[key](scene);
-    scene.traverse(function (o) { if (o.isMesh && o.material && o.material.isMeshStandardMaterial) { o.castShadow = true; o.receiveShadow = true; } });
-    var s = { card: card, r: r, scene: scene, cam: cam, api: api, hov: 0, hv: 0, visible: false, px: 0, py: 0, tx: 0, ty: 0, bp: null };
-    function resize() {
-      var w = host.clientWidth, hh = host.clientHeight; if (!w || !hh) return;
-      r.setSize(w, hh); cam.aspect = w / hh;
-      var f = Math.max(1, api.aspect / cam.aspect);
-      cam.position.set(api.look[0] + (api.cam[0] - api.look[0]) * f, api.look[1] + (api.cam[1] - api.look[1]) * f, api.cam[2] * f);
-      s.bp = cam.position.clone(); cam.lookAt(api.look[0], api.look[1], api.look[2]); cam.updateProjectionMatrix();
-      if (reduce) { api.update(0, 0); r.render(scene, cam); }
-    }
-    new ResizeObserver(resize).observe(host); resize();
-    card.addEventListener('pointerenter', function () { s.hov = 1; });
-    card.addEventListener('pointerleave', function () { s.hov = 0; s.tx = 0; s.ty = 0; });
-    card.addEventListener('pointermove', function (e) { var b = card.getBoundingClientRect(); s.tx = (e.clientX - b.left) / b.width - .5; s.ty = (e.clientY - b.top) / b.height - .5; });
-    insts.push(s);
-  });
-
-  if (reduce) return;
-  function orbit(s) {
-    if (!s.bp) return; var L = s.api.look, dx = s.bp.x - L[0], dy = s.bp.y - L[1], dz = s.bp.z - L[2], a = -s.px * .7, ca = Math.cos(a), sa = Math.sin(a);
-    s.cam.position.set(L[0] + dx * ca + dz * sa, L[1] + dy + s.py * -1.2 + s.hv * .3, L[2] - dx * sa + dz * ca); s.cam.lookAt(L[0], L[1], L[2]);
-  }
-  var last = performance.now(), raf = 0;
-  function frame(now) {
-    var dt = Math.min(.05, (now - last) / 1000); last = now; var any = false;
-    insts.forEach(function (s) { if (!s.visible) return; any = true; s.hv += (s.hov - s.hv) * .12; s.px += (s.tx - s.px) * .08; s.py += (s.ty - s.py) * .08; orbit(s); s.api.update(dt, s.hv); s.r.render(s.scene, s.cam); });
-    raf = any ? requestAnimationFrame(frame) : 0;
-  }
-  function wake() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
-  insts.forEach(function (s) { new IntersectionObserver(function (en) { s.visible = en[0].isIntersecting; if (s.visible) wake(); }).observe(s.card); });
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
 })();
 
 /* ===== Contact: map ===== */
