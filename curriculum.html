@@ -108,41 +108,33 @@
 
 <main id="journey" class="scroll-mt-16">
   <!-- Beyond the classroom: mosaic -->
-  <section id="activities" class="bg-indigo-950 text-white scroll-mt-16">
-    <div class="container mx-auto px-6 py-16">
-      <h2 class="text-3xl md:text-4xl font-extrabold">Beyond the classroom</h2>
-      <p class="mt-3 text-indigo-200 max-w-xl">We develop the whole child. Depending on resources and season, learners can join these activities. Hover over a card to see it come alive.</p>
-      <div class="mt-24 grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-x-5 gap-y-24 md:gap-y-28 md:h-[640px]">
-        <article class="sport relative rounded-3xl bg-lime-400 text-lime-950 md:col-span-2 md:row-span-2 min-h-[420px] md:min-h-0" data-sport="soccer" data-icon="fa-futbol">
-          <div class="stage absolute -top-12 -inset-x-3 bottom-0 pointer-events-none"></div>
-          <div class="absolute left-6 bottom-5 z-10"><h3 class="text-2xl md:text-3xl font-extrabold">Soccer</h3><p class="text-sm font-semibold opacity-80">Teamwork, fitness and fun</p></div>
-        </article>
-        <article class="sport relative rounded-3xl bg-fuchsia-500 text-white min-h-[300px] md:min-h-0" data-sport="netball" data-icon="fa-basketball-ball">
-          <div class="stage absolute -top-12 -inset-x-3 bottom-0 pointer-events-none"></div>
-          <div class="absolute left-6 bottom-5 z-10"><h3 class="text-2xl md:text-3xl font-extrabold">Netball</h3><p class="text-sm font-semibold opacity-80">Pass, shoot, score</p></div>
-        </article>
-        <article class="sport relative rounded-3xl bg-blue-500 text-white min-h-[300px] md:min-h-0" data-sport="athletics" data-icon="fa-running">
-          <div class="stage absolute -top-12 -inset-x-3 bottom-0 pointer-events-none"></div>
-          <div class="absolute left-6 bottom-5 z-10"><h3 class="text-2xl md:text-3xl font-extrabold">Athletics</h3><p class="text-sm font-semibold opacity-80">Run, jump, throw</p></div>
-        </article>
-        <article class="sport relative rounded-3xl bg-amber-400 text-amber-950 md:col-span-2 min-h-[320px] md:min-h-0" data-sport="speech" data-icon="fa-microphone-alt">
-          <div class="stage absolute -top-12 -inset-x-3 bottom-0 pointer-events-none"></div>
-          <div class="absolute left-6 bottom-5 z-10"><h3 class="text-2xl md:text-3xl font-extrabold">Speech &amp; Performance</h3><p class="text-sm font-semibold opacity-80">Confidence on stage</p></div>
-        </article>
-      </div>
+  <section id="activities" class="activities-section text-white scroll-mt-16">
+  <div class="container mx-auto px-6 py-16">
+    <div class="activities-heading">
+      <p class="activities-eyebrow">Beyond the classroom</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Learn, move and grow together</h2>
+      <p class="activities-intro">Illustrative photos show the kinds of sport and creative activities that help learners build confidence. Availability depends on resources and season.</p>
     </div>
-  </section>
-
-  <!-- Pre-footer CTA -->
-  <section class="cta-soft">
-    <div class="cta-in">
-      <div><h2>Ready to join Murogolo?</h2><p>Applications are open for Grade R to Grade 7. We would love to meet you.</p></div>
-      <div class="cta-btns">
-        <a href="admissions.html" class="pill pill-solid"><i class="fas fa-pen-to-square"></i> How to apply</a>
-        <a href="contact.html" class="pill pill-outline"><i class="fas fa-location-dot"></i> Visit the school</a>
-      </div>
+    <div class="activity-grid">
+      <article class="activity-card activity-card-featured">
+        <img src="images/activities/soccer.jpg" alt="Primary school learners playing soccer on a grassy field" loading="lazy" decoding="async">
+        <div class="activity-card-caption"><h3>Soccer</h3><p>Teamwork, fitness and fun</p></div>
+      </article>
+      <article class="activity-card">
+        <img src="images/activities/netball.jpg" alt="Primary school learners playing netball outdoors" loading="lazy" decoding="async">
+        <div class="activity-card-caption"><h3>Netball</h3><p>Pass, shoot, score</p></div>
+      </article>
+      <article class="activity-card">
+        <img src="images/activities/athletics.jpg" alt="Primary school learners running a race on the school field" loading="lazy" decoding="async">
+        <div class="activity-card-caption"><h3>Athletics</h3><p>Run, jump, throw</p></div>
+      </article>
+      <article class="activity-card activity-card-wide">
+        <img src="images/activities/speech.jpg" alt="A learner speaking to classmates at a school event" loading="lazy" decoding="async">
+        <div class="activity-card-caption"><h3>Speech &amp; Performance</h3><p>Confidence on stage</p></div>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
 </main>
 <footer class="site-footer">
   <!-- Notice banner -->
@@ -197,6 +189,5 @@
   </div>
   <button type="button" class="sf-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </body>
 </html>

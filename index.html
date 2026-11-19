@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Murogolo Primary School in Ha Muila, Limpopo: quality public education for Grade R to Grade 7.">
+    <meta name="theme-color" content="#0a1f44">
     <title>Murogolo Primary School</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,7 +16,7 @@
 </head>
 <body class="font-sans text-gray-800">
 
-    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200">
+    <nav class="home-nav sticky top-0 z-50 bg-white border-b border-slate-200">
   <div class="container mx-auto flex items-center justify-between px-4 py-3">
     <a href="index.html" class="flex items-center gap-3 min-w-0">
       <img src="logo.jpg" alt="Murogolo Primary School crest" class="h-11 w-11 shrink-0 rounded-lg border border-slate-200 bg-white object-contain p-0.5">
@@ -40,92 +42,63 @@
   <div class="side-foot"><a href="admissions.html" class="side-cta">Apply Now</a></div>
 </aside>
 
-    <header class="hero-bg relative overflow-hidden flex flex-col lg:flex-row lg:items-center lg:h-[600px] text-white px-5 sm:px-8 pt-10 pb-6 lg:py-0">
-        <div class="container mx-auto relative z-10 order-1">
-            <span class="bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-xs font-bold uppercase inline-block">Limpopo Province &bull; Vhembe District</span>
-            <h2 class="text-4xl sm:text-5xl font-bold mt-4">Welcome to</h2>
-            <h2 class="text-5xl sm:text-6xl font-bold text-yellow-400 mb-6">Murogolo Primary</h2>
-            <p class="text-lg sm:text-xl max-w-xl mb-8">Building a strong foundation for future leaders through quality public education in Ha Muila.</p>
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <a href="about.html" class="bg-white text-blue-900 px-6 py-3 rounded font-bold inline-block text-center">About Our School</a>
-                <a href="admissions.html" class="border-2 border-white px-6 py-3 rounded font-bold inline-block text-center">Admissions Info</a>
-                <a href="curriculum.html" class="bg-yellow-500 text-blue-900 px-6 py-3 rounded font-bold inline-block text-center">View Curriculum</a>
-            </div>
+    <header class="home-hero hero-bg" aria-labelledby="home-title">
+      <div class="home-hero-content">
+        <div class="home-hero-copy">
+          <p class="home-eyebrow"><i class="fas fa-location-dot" aria-hidden="true"></i><span>Limpopo Province</span><span class="home-eyebrow-dot" aria-hidden="true">&bull;</span><span>Vhembe District</span></p>
+          <h1 class="home-title" id="home-title"><span class="home-title-intro">Welcome to</span><span class="home-title-name">Murogolo <em>Primary</em></span></h1>
+          <p class="home-description">Building a strong foundation for future leaders through quality public education in Ha Muila.</p>
+          <div class="home-actions">
+            <a href="admissions.html" class="home-action home-action-primary">Admissions information <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            <a href="about.html" class="home-action home-action-secondary">About our school</a>
+            <a href="curriculum.html" class="home-action home-action-tertiary">Explore curriculum <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <p class="home-trust"><i class="fas fa-circle-check" aria-hidden="true"></i><span>Grade R&ndash;7</span><span class="home-trust-dot" aria-hidden="true">&bull;</span><span>No-fee public school</span></p>
         </div>
-        <div id="hero3d" aria-hidden="true" class="hero-3d-badge relative order-2 w-full h-[340px] sm:h-[440px] mt-8 lg:mt-0 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-auto pointer-events-none"></div>
-        <div id="hero3dL" aria-hidden="true" class="hero-mask-l relative order-3 w-full h-[130px] sm:h-[150px] lg:absolute lg:inset-y-0 lg:left-0 lg:w-[42%] lg:h-auto pointer-events-none"></div>
+      </div>
+      <div id="hero3d" aria-hidden="true" class="hero-3d-badge"></div>
+      <div id="hero3dL" aria-hidden="true" class="hero-mask-l"></div>
     </header>
 
-    <section class="bg-[#003399] text-white py-12">
-        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <i class="fas fa-users text-3xl mb-2"></i>
-                <h3 class="text-3xl font-bold">~150</h3>
-                <p class="text-sm uppercase tracking-widest text-gray-300">Learners</p>
-            </div>
-            <div>
-                <i class="fas fa-book-open text-3xl mb-2"></i>
-                <h3 class="text-3xl font-bold">8</h3>
-                <p class="text-sm uppercase tracking-widest text-gray-300">Grades (R-7)</p>
-            </div>
-            <div>
-                <i class="fas fa-trophy text-3xl mb-2"></i>
-                <h3 class="text-3xl font-bold">5+</h3>
-                <p class="text-sm uppercase tracking-widest text-gray-300">Educators</p>
-            </div>
-            <div>
-                <i class="fas fa-check-circle text-3xl mb-2"></i>
-                <h3 class="text-3xl font-bold text-yellow-400">No-Fee</h3>
-                <p class="text-sm uppercase tracking-widest text-gray-300">Public School</p>
-            </div>
-        </div>
+    <section class="home-stats" aria-label="Murogolo Primary School at a glance">
+      <div class="home-stats-grid">
+        <div class="home-stat"><span class="home-stat-icon"><i class="fas fa-users" aria-hidden="true"></i></span><span class="home-stat-copy"><strong>~150</strong><span>Learners</span></span></div>
+        <div class="home-stat"><span class="home-stat-icon"><i class="fas fa-book-open" aria-hidden="true"></i></span><span class="home-stat-copy"><strong>8</strong><span>Grades (R&ndash;7)</span></span></div>
+        <div class="home-stat"><span class="home-stat-icon"><i class="fas fa-chalkboard-user" aria-hidden="true"></i></span><span class="home-stat-copy"><strong>5+</strong><span>Educators</span></span></div>
+        <div class="home-stat"><span class="home-stat-icon"><i class="fas fa-heart" aria-hidden="true"></i></span><span class="home-stat-copy"><strong>No-fee</strong><span>Public school</span></span></div>
+      </div>
     </section>
 
-    <section class="py-20 bg-gray-50">
-        <div class="container mx-auto flex flex-col md:flex-row gap-12 items-center px-6">
-            <div class="md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80" alt="Students reading" class="rounded-2xl shadow-xl">
-            </div>
-            <div class="md:w-1/2">
-                <h2 class="text-4xl font-bold mb-4">Nurturing Potential in <span class="text-yellow-500">Every Child</span></h2>
-                <p class="text-gray-600 mb-6">
-                    Murogolo Primary School is a public school located in the heart of Ha Muila, Kwaaidraai. 
-                    We are dedicated to providing accessible, high-quality education to learners from Grade R to Grade 7.
-                </p>
-                <ul class="space-y-3 mb-8">
-                    <li><span class="text-yellow-500 mr-2">•</span> Official CAPS Curriculum followed</li>
-                    <li><span class="text-yellow-500 mr-2">•</span> Government funded No-Fee School</li>
-                    <li><span class="text-yellow-500 mr-2">•</span> Focus on Literacy and Numeracy</li>
-                    <li><span class="text-yellow-500 mr-2">•</span> Community-centered environment</li>
-                </ul>
-                <a href="curriculum.html" class="bg-blue-700 text-white px-6 py-2 rounded shadow inline-block text-center">View Curriculum</a>
-            </div>
+    <section class="home-about" aria-labelledby="home-about-heading">
+      <div class="home-about-inner">
+        <div class="home-about-image"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80" alt="Students reading together"><span class="home-image-note"><i class="fas fa-book-open" aria-hidden="true"></i> Learning from Grade R to Grade 7</span></div>
+        <div class="home-about-copy">
+          <p class="home-section-eyebrow">Our school</p>
+          <h2 id="home-about-heading">Nurturing potential in <span>every child</span></h2>
+          <p>Murogolo Primary School is a public school located in the heart of Ha Muila, Kwaaidraai. We are dedicated to providing accessible, high-quality education to learners from Grade R to Grade 7.</p>
+          <ul class="home-checks">
+            <li><i class="fas fa-check" aria-hidden="true"></i><span>Official CAPS curriculum</span></li>
+            <li><i class="fas fa-check" aria-hidden="true"></i><span>Government-funded no-fee school</span></li>
+            <li><i class="fas fa-check" aria-hidden="true"></i><span>Focus on literacy and numeracy</span></li>
+            <li><i class="fas fa-check" aria-hidden="true"></i><span>Community-centred environment</span></li>
+          </ul>
+          <a href="curriculum.html" class="home-text-link">Discover our curriculum <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
         </div>
+      </div>
     </section>
 
-    <section class="py-20 text-center">
-        <h2 class="text-3xl font-bold mb-2">Why Choose Murogolo?</h2>
-        <p class="text-gray-500 mb-12">We strive to create a safe, disciplined, and stimulating environment for all our learners.</p>
-        
-        <div class="container mx-auto grid md:grid-cols-3 gap-8 px-6">
-            <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm">
-                <i class="fas fa-book text-blue-600 text-2xl mb-4"></i>
-                <h4 class="font-bold mb-2">Quality Education</h4>
-                <p class="text-gray-500 text-sm">Following the national CAPS curriculum with dedicated teachers focused on foundational skills.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm">
-                <i class="fas fa-users text-green-500 text-2xl mb-4"></i>
-                <h4 class="font-bold mb-2">Inclusive Community</h4>
-                <p class="text-gray-500 text-sm">A welcoming environment where every child belongs, regardless of their background.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm">
-                <i class="fas fa-award text-yellow-500 text-2xl mb-4"></i>
-                <h4 class="font-bold mb-2">Holistic Growth</h4>
-                <p class="text-gray-500 text-sm">Beyond academics, we offer sports and cultural activities to develop well-rounded learners.</p>
-            </div>
-        </div>
+    <section class="home-values" aria-labelledby="home-values-heading">
+      <div class="home-section-heading">
+        <p class="home-section-eyebrow">Why Murogolo</p>
+        <h2 id="home-values-heading">A strong start for every learner</h2>
+        <p>We strive to create a safe, disciplined, and stimulating environment for all our learners.</p>
+      </div>
+      <div class="home-values-grid">
+        <article class="home-value"><span class="home-value-icon"><i class="fas fa-book-open" aria-hidden="true"></i></span><h3>Quality education</h3><p>Following the national CAPS curriculum with dedicated teachers focused on foundational skills.</p></article>
+        <article class="home-value"><span class="home-value-icon"><i class="fas fa-people-group" aria-hidden="true"></i></span><h3>Inclusive community</h3><p>A welcoming environment where every child belongs, regardless of their background.</p></article>
+        <article class="home-value"><span class="home-value-icon"><i class="fas fa-award" aria-hidden="true"></i></span><h3>Holistic growth</h3><p>Beyond academics, we offer sports and cultural activities to develop well-rounded learners.</p></article>
+      </div>
     </section>
-
     <footer class="site-footer">
   <!-- Notice banner -->
   <div class="sf-notice">
