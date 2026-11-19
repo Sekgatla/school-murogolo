@@ -31,7 +31,7 @@
    open book + pencil + graduation cap standing in FRONT of the seal so nothing is hidden. */
 (function () {
   var el = document.getElementById('hero3d');
-  if (!el || !window.THREE) return;
+  if (!el || !window.THREE || matchMedia('(max-width: 767px)').matches) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var r;
   try { r = new THREE.WebGLRenderer({ alpha: true, antialias: true }); } catch (e) { return; }
@@ -134,7 +134,7 @@
   book.position.set(0, 0, 0); book.rotation.x = A; book.scale.setScalar(BS); desk.add(book);
   desk.position.set(-3.9, -3.7, 0); desk.scale.setScalar(.8);   // bottom-left, outside the ring
 
-  /* pencil (classic yellow, pink eraser) – tip at local origin */
+  /* pencil (classic yellow, pink eraser) â tip at local origin */
   var pencil = new THREE.Group();
   var body = mk(new THREE.CylinderGeometry(.13, .13, 2.5, 6), YEL, { roughness: .4 }); body.position.y = 1.55; pencil.add(body);
   var wood = mk(new THREE.ConeGeometry(.13, .5, 6), 0xf1d3a3); wood.rotation.x = Math.PI; wood.position.y = .25; pencil.add(wood);
@@ -214,7 +214,7 @@
 /* ===== Index: hero 3D toy blocks ===== */
 (function () {
   var el = document.getElementById('hero3dL');
-  if (!el || !window.THREE) return;
+  if (!el || !window.THREE || matchMedia('(max-width: 767px)').matches) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var r;
   try { r = new THREE.WebGLRenderer({ alpha: true, antialias: true }); } catch (e) { return; }
@@ -961,7 +961,7 @@ setMap('m');
 /* ===== Contact: weekly hours ===== */
 (function () {
   if (!document.getElementById('week')) return;
-var days = [['Mon', '07:30 – 14:30', 1], ['Tue', '07:30 – 14:30', 1], ['Wed', '07:30 – 14:30', 1], ['Thu', '07:30 – 14:30', 1], ['Fri', '07:30 – 13:00', 2], ['Sat', 'Closed', 0], ['Sun', 'Closed', 0]];
+var days = [['Mon', '07:30 â 14:30', 1], ['Tue', '07:30 â 14:30', 1], ['Wed', '07:30 â 14:30', 1], ['Thu', '07:30 â 14:30', 1], ['Fri', '07:30 â 13:00', 2], ['Sat', 'Closed', 0], ['Sun', 'Closed', 0]];
 var today = (new Date().getDay() + 6) % 7;
 document.getElementById('week').innerHTML = days.map(function (d, i) {
   var c = d[2] === 1 ? 'bg-slate-900 text-white' : d[2] === 2 ? 'bg-slate-700 text-white' : 'bg-slate-200 text-slate-500';
